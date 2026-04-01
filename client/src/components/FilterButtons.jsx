@@ -8,11 +8,20 @@ const categories = [
   "Education",
 ];
 
-function FilterButtons() {
+function FilterButtons({ selectedCategory, setSelectedCategory }) {
   return (
     <div style={styles.container}>
       {categories.map((category) => (
-        <button key={category} style={styles.button}>
+        <button
+          key={category}
+          style={{
+            ...styles.button,
+            backgroundColor:
+              selectedCategory === category ? "white" : "#272727",
+            color: selectedCategory === category ? "black" : "white",
+          }}
+          onClick={() => setSelectedCategory(category)}
+        >
           {category}
         </button>
       ))}
@@ -31,10 +40,10 @@ const styles = {
   button: {
     padding: "8px 16px",
     borderRadius: "10px",
-    backgroundColor: "#272727",
-    color: "white",
     whiteSpace: "nowrap",
     fontSize: "14px",
+    border: "none",
+    cursor: "pointer",
   },
 };
 

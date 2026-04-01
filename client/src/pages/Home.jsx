@@ -41,14 +41,40 @@ const sampleVideos = [
     views: 19800,
     category: "News",
   },
+  {
+    _id: "5",
+    title: "Best Gaming Highlights",
+    thumbnailUrl:
+      "https://i.ytimg.com/vi/ysz5S6PUM-U/maxresdefault.jpg",
+    channelName: "Gaming Pro",
+    views: 30500,
+    category: "Gaming",
+  },
+  {
+    _id: "6",
+    title: "Music Mix 2025",
+    thumbnailUrl:
+      "https://i.ytimg.com/vi/ScMzIvxBSi4/maxresdefault.jpg",
+    channelName: "Music Beats",
+    views: 87000,
+    category: "Music",
+  },
 ];
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const filteredVideos = sampleVideos.filter((video) =>
-    video.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredVideos = sampleVideos.filter((video) => {
+    const matchesSearch = video.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === "All" || video.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div>
@@ -58,7 +84,10 @@ function Home() {
         <Sidebar />
 
         <main style={styles.mainContent}>
-          <FilterButtons />
+          <FilterButtons
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
 
           <div style={styles.videoGrid}>
             {filteredVideos.length > 0 ? (
