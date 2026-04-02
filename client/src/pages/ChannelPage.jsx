@@ -48,7 +48,7 @@ function ChannelPage() {
   };
 
   return (
-    <div style={{ backgroundColor: "#0f0f0f", minHeight: "100vh", color: "white" }}>
+    <div style={{ backgroundColor: "#0f0f0f", minHeight: "100vh", color: "white", marginTop: "120px"}}>
       <Header />
       <div style={{ maxWidth: "800px", margin: "30px auto", padding: "20px" }}>
         <h2>{channelName}</h2>
