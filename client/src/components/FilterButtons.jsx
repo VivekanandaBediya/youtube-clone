@@ -36,6 +36,7 @@ const styles = {
     overflowX: "auto",
     paddingBottom: "15px",
     marginBottom: "20px",
+    scrollbarWidth: "none",
   },
   button: {
     padding: "8px 16px",
@@ -44,6 +45,7 @@ const styles = {
     fontSize: "14px",
     border: "none",
     cursor: "pointer",
+    flexShrink: 0,
   },
 };
 

@@ -1,0 +1,52 @@
+.home-page {
+  background-color: #0f0f0f;
+  min-height: 100vh;
+  color: white;
+}
+
+.home-layout {
+  display: flex;
+}
+
+.home-content {
+  flex: 1;
+  padding: 84px 24px 24px 24px;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+.home-content.with-sidebar {
+  margin-left: 220px;
+}
+
+.home-content.full-width {
+  margin-left: 0;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.no-videos {
+  color: #aaa;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-content {
+    padding: 84px 16px 16px 16px;
+  }
+
+  .home-content.with-sidebar {
+    margin-left: 0;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
