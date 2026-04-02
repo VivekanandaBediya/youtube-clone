@@ -37,7 +37,7 @@ function Login() {
       const res = await loginUser(formData);
 
       // Expected backend response:
-      // { token, user: { username, email, _id } }
+      // { token, user: { username, email and id } }
 
       const { token, user } = res.data;
 
