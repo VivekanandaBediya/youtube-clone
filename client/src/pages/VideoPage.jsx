@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
+import videos from "../data/videos";
 
 function VideoPage() {
   const { videoId } = useParams();
-  const [video, setVideo] = useState(null);
+  const [video, setVideo] = useState(videos);
   const [commentText, setCommentText] = useState("");
   const username = localStorage.getItem("username");
 
@@ -50,7 +51,7 @@ function VideoPage() {
     updateVideo(updatedVideo);
   };
 
-  if (!video) return <p style={{ color: "white", textAlign: "center", marginTop: "50px" }}>Video not found</p>;
+  if (!video) return <p style={{ color: "white", textAlign: "center", marginTop: "50px" }}>Video not found I do not know</p>;
 
   return (
     <div style={{ backgroundColor: "#0f0f0f", minHeight: "100vh", color: "white" }}>
@@ -90,6 +91,8 @@ function VideoPage() {
     </div>
   );
 }
+
+
 
 const inputStyle = {
   padding: "8px",

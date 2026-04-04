@@ -5,8 +5,7 @@ import Video from "../models/Video.js";
 // @access  Private
 export const createVideo = async (req, res) => {
   try {
-    const { title, thumbnailUrl, videoUrl, description, category, channelId } =
-      req.body;
+    const { title, thumbnailUrl, videoUrl, description, category, channelId } = req.body;
 
     if (!title || !thumbnailUrl || !videoUrl || !category || !channelId) {
       return res.status(400).json({ message: "All fields are required" });
