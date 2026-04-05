@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import videos from "../data/videos";
 
 function VideoPage() {
-  const { id } = useParams(); // /video/:id
+  const { id } = useParams(); // /video/:id --> getting the dynamic id of videos
   const [video, setVideo] = useState(null);
   const [commentText, setCommentText] = useState("");
   const username = localStorage.getItem("username");
@@ -49,9 +49,7 @@ function VideoPage() {
 
   if (!video) {
     return (
-      <p style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
-        Video not found
-      </p>
+      <p style={{ color: "white", textAlign: "center", marginTop: "50px" }}>Video not found</p>
     );
   }
 
@@ -60,11 +58,7 @@ function VideoPage() {
       <Header />
 
       <div style={{ maxWidth: "900px", margin: "30px auto", padding: "20px" }}>
-        <video
-          src={video.videoUrl}
-          controls
-          style={{ width: "100%", borderRadius: "8px" }}
-        />
+        <video src={video.videoUrl} controls style={{ width: "100%", borderRadius: "8px" }}/>
 
         <h2 style={{ marginTop: "20px" }}>{video.title}</h2>
         <p>{video.description}</p>
@@ -75,20 +69,14 @@ function VideoPage() {
         </div>
 
         <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-          <button onClick={handleLike} style={buttonStyle}>
-            👍 {video.likes || 0}
-          </button>
-          <button onClick={handleDislike} style={buttonStyle}>
-            👎 {video.dislikes || 0}
-          </button>
+          <button onClick={handleLike} style={buttonStyle}>👍 {video.likes || 0}</button>
+          <button onClick={handleDislike} style={buttonStyle}>👎 {video.dislikes || 0}</button>
         </div>
 
         <div style={{ marginTop: "30px" }}>
           <h3>Comments</h3>
 
-          <form
-            onSubmit={handleAddComment}
-            style={{
+          <form onSubmit={handleAddComment} style={{
               display: "flex",
               flexDirection: "column",
               gap: "10px",
@@ -120,12 +108,7 @@ function VideoPage() {
             >
               <strong>{comment.user}:</strong> {comment.text}
               {comment.user === username && (
-                <button
-                  onClick={() => handleDeleteComment(comment.id)}
-                  style={deleteButtonStyle}
-                >
-                  Delete
-                </button>
+                <button onClick={() => handleDeleteComment(comment.id)} style={deleteButtonStyle}>Delete</button>
               )}
             </div>
           ))}
@@ -135,6 +118,8 @@ function VideoPage() {
   );
 }
 
+
+// Stylling the video page
 const inputStyle = {
   padding: "8px",
   borderRadius: "6px",
