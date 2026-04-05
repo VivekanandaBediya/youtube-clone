@@ -1,5 +1,4 @@
-// src/data/videos.js
-
+// Local and dummies data 
 const videos = [
   {
     _id: "69d072e575c3b4c679d9d5b4",
