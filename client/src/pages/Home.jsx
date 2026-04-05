@@ -61,7 +61,8 @@ const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   // const [videos] = useState(sampleVideos);
-  const [video] = useState(videos)
+  const [video] = useState(videos);
+  
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredVideos = videos.filter((video) => {
