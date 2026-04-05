@@ -11,50 +11,34 @@ function Header({ searchTerm, setSearchTerm, toggleSidebar }) {
 
   return (
     <header style={headerStyle}>
-      {/* Left */}
+      {/* Left side */}
       <div style={leftStyle}>
-        <button style={menuButtonStyle} onClick={toggleSidebar}>
-          ☰
-        </button>
-
-        <Link to="/" style={logoStyle}>
-          YouTube Clone
-        </Link>
+        <button style={menuButtonStyle} onClick={toggleSidebar}> ☰ </button>
+        <Link to="/" style={logoStyle}> YouTube Clone </Link>
       </div>
 
-      {/* Center Search */}
+      {/* Center Search input */}
       <div style={centerStyle}>
-        <input
-          type="text"
-          placeholder="Search videos..."
-          value={searchTerm || ""}
-          onChange={(e) => setSearchTerm && setSearchTerm(e.target.value)}
-          style={searchInputStyle}
-        />
+        <input type="text" placeholder="Search videos..." value={searchTerm || ""} onChange={(e) => setSearchTerm & setSearchTerm(e.target.value)}style={searchInputStyle}/>
       </div>
 
-      {/* Right */}
+      {/* Right side */}
       <div style={rightStyle}>
         {username ? (
           <>
             <span style={userStyle}>Hi, {username}</span>
-            <Link to="/channel" style={channelButtonStyle}>
-              My Channel
-            </Link>
-            <button onClick={handleLogout} style={logoutButtonStyle}>
-              Logout
-            </button>
+            <Link to="/channel" style={channelButtonStyle}>My Channel</Link>
+            <button onClick={handleLogout} style={logoutButtonStyle}>Logout</button>
           </>
         ) : (
-          <Link to="/login" style={loginButtonStyle}>
-            Sign In
-          </Link>
+          <Link to="/login" style={loginButtonStyle}>Sign In</Link>
         )}
       </div>
     </header>
   );
 }
 
+// CSS Styling section 
 const headerStyle = {
   display: "flex",
   justifyContent: "space-between",
