@@ -1,11 +1,6 @@
 function Sidebar({ isOpen }) {
   return (
-    <aside
-      style={{
-        ...styles.sidebar,
-        transform: isOpen ? "translateX(0)" : "translateX(-100%)",
-      }}
-    >
+    <aside style={{...styles.sidebar,transform: isOpen ? "translateX(0)" : "translateX(-100%)",}}>
       <div style={styles.item}>🏠 Home</div>
       <div style={styles.item}>🎬 Shorts</div>
       <div style={styles.item}>📺 Subscriptions</div>
@@ -15,6 +10,8 @@ function Sidebar({ isOpen }) {
   );
 }
 
+
+// CSS styling section 
 const styles = {
   sidebar: {
     width: "220px",
