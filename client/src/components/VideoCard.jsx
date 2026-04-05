@@ -9,11 +9,7 @@ function VideoCard({ video }) {
 
   return (
     <div style={styles.card} onClick={handleClick}>
-      <img
-        src={video.thumbnailUrl}
-        alt={video.title}
-        style={styles.thumbnail}
-        onError={(e) => {
+      <img src={video.thumbnailUrl} alt={video.title} style={styles.thumbnail} onError={(e) => {
           e.target.src = "https://via.placeholder.com/320x180?text=No+Thumbnail";
         }}
       />
@@ -27,6 +23,8 @@ function VideoCard({ video }) {
   );
 }
 
+
+// Styling section 
 const styles = {
   card: {
     width: "100%",
