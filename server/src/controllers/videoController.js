@@ -1,5 +1,10 @@
 import Video from "../models/Video.js";
 
+// Helper: find by custom videoId
+const findVideoByVideoId = async (videoId) => {
+  return await Video.findOne({ videoId });
+};
+
 // @desc    Create Video
 // @route   POST /api/videos
 // @access  Private
@@ -11,7 +16,12 @@ export const createVideo = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
+    // Auto-generate next videoId
+    const lastVideo = await Video.findOne().sort({ createdAt: -1 });
+    const nextVideoId = lastVideo ? String(Number(lastVideo.videoId || 0) + 1) : "1";
+
     const video = await Video.create({
+      videoId: nextVideoId,
       title,
       thumbnailUrl,
       videoUrl,
@@ -19,6 +29,9 @@ export const createVideo = async (req, res) => {
       category,
       channelId,
       uploader: req.user._id,
+      views: 0,
+      likes: [],
+      dislikes: [],
     });
 
     res.status(201).json(video);
@@ -56,12 +69,12 @@ export const getAllVideos = async (req, res) => {
   }
 };
 
-// @desc    Get Single Video
+// @desc    Get Single Video by custom videoId
 // @route   GET /api/videos/:id
 // @access  Public
 export const getVideoById = async (req, res) => {
   try {
-    const video = await Video.findById(req.params.id)
+    const video = await Video.findOne({ videoId: req.params.id })
       .populate("channelId", "channelName")
       .populate("uploader", "username avatar");
 
@@ -94,24 +107,24 @@ export const getVideosByChannel = async (req, res) => {
   }
 };
 
-// @desc    Update Video
+// @desc    Update Video by custom videoId
 // @route   PUT /api/videos/:id
 // @access  Private
 export const updateVideo = async (req, res) => {
   try {
-    const video = await Video.findById(req.params.id);
+    const video = await Video.findOne({ videoId: req.params.id });
 
     if (!video) {
       return res.status(404).json({ message: "Video not found" });
     }
 
     // Check ownership
-    if (video.uploader.toString() !== req.user._id.toString()) {
+    if (video.uploader?.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
-    const updatedVideo = await Video.findByIdAndUpdate(
-      req.params.id,
+    const updatedVideo = await Video.findOneAndUpdate(
+      { videoId: req.params.id },
       req.body,
       { new: true }
     );
@@ -122,19 +135,19 @@ export const updateVideo = async (req, res) => {
   }
 };
 
-// @desc    Delete Video
+// @desc    Delete Video by custom videoId
 // @route   DELETE /api/videos/:id
 // @access  Private
 export const deleteVideo = async (req, res) => {
   try {
-    const video = await Video.findById(req.params.id);
+    const video = await Video.findOne({ videoId: req.params.id });
 
     if (!video) {
       return res.status(404).json({ message: "Video not found" });
     }
 
     // Check ownership
-    if (video.uploader.toString() !== req.user._id.toString()) {
+    if (video.uploader?.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -146,31 +159,31 @@ export const deleteVideo = async (req, res) => {
   }
 };
 
-// @desc    Like Video
+// @desc    Like Video by custom videoId
 // @route   PUT /api/videos/:id/like
 // @access  Private
 export const likeVideo = async (req, res) => {
   try {
-    const video = await Video.findById(req.params.id);
+    const video = await Video.findOne({ videoId: req.params.id });
 
     if (!video) {
       return res.status(404).json({ message: "Video not found" });
     }
 
-    const userId = req.user._id;
+    const userId = req.user._id.toString();
 
     // Remove from dislikes
     video.dislikes = video.dislikes.filter(
-      (id) => id.toString() !== userId.toString()
+      (id) => id.toString() !== userId
     );
 
     // Toggle like
-    if (video.likes.includes(userId)) {
-      video.likes = video.likes.filter(
-        (id) => id.toString() !== userId.toString()
-      );
+    const alreadyLiked = video.likes.some((id) => id.toString() === userId);
+
+    if (alreadyLiked) {
+      video.likes = video.likes.filter((id) => id.toString() !== userId);
     } else {
-      video.likes.push(userId);
+      video.likes.push(req.user._id);
     }
 
     await video.save();
@@ -181,31 +194,31 @@ export const likeVideo = async (req, res) => {
   }
 };
 
-// @desc    Dislike Video
+// @desc    Dislike Video by custom videoId
 // @route   PUT /api/videos/:id/dislike
 // @access  Private
 export const dislikeVideo = async (req, res) => {
   try {
-    const video = await Video.findById(req.params.id);
+    const video = await Video.findOne({ videoId: req.params.id });
 
     if (!video) {
       return res.status(404).json({ message: "Video not found" });
     }
 
-    const userId = req.user._id;
+    const userId = req.user._id.toString();
 
     // Remove from likes
     video.likes = video.likes.filter(
-      (id) => id.toString() !== userId.toString()
+      (id) => id.toString() !== userId
     );
 
     // Toggle dislike
-    if (video.dislikes.includes(userId)) {
-      video.dislikes = video.dislikes.filter(
-        (id) => id.toString() !== userId.toString()
-      );
+    const alreadyDisliked = video.dislikes.some((id) => id.toString() === userId);
+
+    if (alreadyDisliked) {
+      video.dislikes = video.dislikes.filter((id) => id.toString() !== userId);
     } else {
-      video.dislikes.push(userId);
+      video.dislikes.push(req.user._id);
     }
 
     await video.save();

@@ -3,21 +3,25 @@ import { useNavigate } from "react-router-dom";
 function VideoCard({ video }) {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate(`/video/${video.videoId}`); // ✅ local data ka stable route
+  };
+
   return (
-    <div
-      style={styles.card}
-      onClick={() => navigate(`/video/${video._id}`)}
-    >
+    <div style={styles.card} onClick={handleClick}>
       <img
         src={video.thumbnailUrl}
         alt={video.title}
         style={styles.thumbnail}
+        onError={(e) => {
+          e.target.src = "https://via.placeholder.com/320x180?text=No+Thumbnail";
+        }}
       />
 
       <div style={styles.info}>
         <h3 style={styles.title}>{video.title}</h3>
-        <p style={styles.channel}>{video.channelName}</p>
-        <p style={styles.views}>{video.views.toLocaleString()} views</p>
+        <p style={styles.channel}>{video.channelName || "Unknown Channel"}</p>
+        <p style={styles.views}>{(video.views || 0).toLocaleString()} views</p>
       </div>
     </div>
   );

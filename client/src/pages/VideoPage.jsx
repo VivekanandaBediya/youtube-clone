@@ -1,36 +1,25 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
+import videos from "../data/videos";
 
 function VideoPage() {
-  const { id } = useParams(); // ✅ route me :id hai, to yahan bhi id hi lena hoga
-  const [video, setVideo] = useState(null); // ✅ initially null
+  const { id } = useParams(); // /video/:id
+  const [video, setVideo] = useState(null);
   const [commentText, setCommentText] = useState("");
   const username = localStorage.getItem("username");
 
   useEffect(() => {
-    const storedVideos = JSON.parse(localStorage.getItem("videos")) || [];
-    const selectedVideo = storedVideos.find((v) => v.id.toString() === id);
+    const selectedVideo = videos.find((v) => v.videoId === id);
     setVideo(selectedVideo || null);
   }, [id]);
 
-  const updateVideo = (updatedVideo) => {
-    const storedVideos = JSON.parse(localStorage.getItem("videos")) || [];
-    const updatedVideos = storedVideos.map((v) =>
-      v.id === updatedVideo.id ? updatedVideo : v
-    );
-    localStorage.setItem("videos", JSON.stringify(updatedVideos));
-    setVideo(updatedVideo);
-  };
-
   const handleLike = () => {
-    const updatedVideo = { ...video, likes: (video.likes || 0) + 1 };
-    updateVideo(updatedVideo);
+    setVideo((prev) => ({ ...prev, likes: (prev.likes || 0) + 1 }));
   };
 
   const handleDislike = () => {
-    const updatedVideo = { ...video, dislikes: (video.dislikes || 0) + 1 };
-    updateVideo(updatedVideo);
+    setVideo((prev) => ({ ...prev, dislikes: (prev.dislikes || 0) + 1 }));
   };
 
   const handleAddComment = (e) => {
@@ -43,43 +32,49 @@ function VideoPage() {
       text: commentText,
     };
 
-    const updatedVideo = {
-      ...video,
-      comments: [...(video.comments || []), newComment],
-    };
+    setVideo((prev) => ({
+      ...prev,
+      comments: [...(prev.comments || []), newComment],
+    }));
 
-    updateVideo(updatedVideo);
     setCommentText("");
   };
 
   const handleDeleteComment = (commentId) => {
-    const updatedVideo = {
-      ...video,
-      comments: (video.comments || []).filter((c) => c.id !== commentId),
-    };
-    updateVideo(updatedVideo);
+    setVideo((prev) => ({
+      ...prev,
+      comments: (prev.comments || []).filter((c) => c.id !== commentId),
+    }));
   };
 
-  if (!video)
+  if (!video) {
     return (
       <p style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
         Video not found
       </p>
     );
+  }
 
   return (
     <div style={{ backgroundColor: "#0f0f0f", minHeight: "100vh", color: "white" }}>
       <Header />
-      <div style={{ maxWidth: "800px", margin: "30px auto", padding: "20px" }}>
+
+      <div style={{ maxWidth: "900px", margin: "30px auto", padding: "20px" }}>
         <video
           src={video.videoUrl}
           controls
           style={{ width: "100%", borderRadius: "8px" }}
         />
-        <h2>{video.title}</h2>
+
+        <h2 style={{ marginTop: "20px" }}>{video.title}</h2>
         <p>{video.description}</p>
 
-        <div style={{ display: "flex", gap: "10px", margin: "10px 0" }}>
+        <div style={{ display: "flex", gap: "20px", marginTop: "10px" }}>
+          <p>👀 {video.views || 0} views</p>
+          <p>📂 {video.category}</p>
+        </div>
+
+        <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
           <button onClick={handleLike} style={buttonStyle}>
             👍 {video.likes || 0}
           </button>
