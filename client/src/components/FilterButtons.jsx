@@ -1,34 +1,17 @@
-const categories = [
-  "All",
-  "Coding",
-  "Music",
-  "Gaming",
-  "Sports",
-  "News",
-  "Education",
-];
+const categories = ["All","Coding","Music","Gaming","Sports","News","Education",];
 
 function FilterButtons({ selectedCategory, setSelectedCategory }) {
   return (
     <div style={styles.container}>
       {categories.map((category) => (
-        <button
-          key={category}
-          style={{
-            ...styles.button,
-            backgroundColor:
-              selectedCategory === category ? "white" : "#272727",
-            color: selectedCategory === category ? "black" : "white",
-          }}
-          onClick={() => setSelectedCategory(category)}
-        >
-          {category}
-        </button>
+        <button key={category} style={{...styles.button, backgroundColor: selectedCategory === category ? "white" : "#272727",color: selectedCategory === category ? "black" : "white",}} onClick={() => setSelectedCategory(category)}>{category}</button>
       ))}
     </div>
   );
 }
 
+
+// CSS Styling section 
 const styles = {
   container: {
     display: "flex",
