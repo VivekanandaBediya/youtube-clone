@@ -1,6 +1,6 @@
 ## Project : YouTube-clone Project
 
-## Github URL : 
+## (Github URL): https://github.com/VivekanandaBediya/youtube-clone/tree/Vivek-repository 
 
 ## Instruction for running the final project
 
@@ -16,5 +16,13 @@
 ## Note : You have to running the npm install command two places
   # ->Youtube-clone > npm install                  [Root folder ]
   # ->Youtube-clone > client -> npm install        [subfolder client side]
+
+
+#### Note :
+# Root folder : Youtube-clone
+# sub folder : client (for frontend ) & server (for backend)
+
+# Already all configuration in done , so you do not need to running different diffent client and server. Only you running the running the npm run dev in console in the root folder only after installing the installing the node_module in the root folder and client folder.
+
 
 
