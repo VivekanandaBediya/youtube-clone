@@ -13,4 +13,8 @@
 # 2. For running the Youtube-clone project 
 #      -> npm run dev
 
+## Note : You have to running the npm install command two places
+  # ->Youtube-clone > npm install                  [Root folder ]
+  # ->Youtube-clone > client -> npm install        [subfolder client side]
+
 
