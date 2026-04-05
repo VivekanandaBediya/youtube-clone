@@ -2,9 +2,12 @@
 
 ## Github URL : 
 
-## Instruction for running the project
+## Instruction for running the final project
 
 # 1. install the required packages 
 #      -> npm install 
 
-# 2. 
+# 2. For running the Youtube-clone project 
+#      -> npm run dev
+
+
