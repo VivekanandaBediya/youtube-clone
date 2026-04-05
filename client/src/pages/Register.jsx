@@ -88,64 +88,31 @@ function Register() {
       <div style={styles.card}>
         <h1 style={styles.logo}>YouTube Clone</h1>
         <h2 style={styles.heading}>Create Account</h2>
-        <p style={styles.subText}>Join and start your video journey 🚀</p>
+        <p style={styles.subText}>Join and start your video journey</p>
 
         <form onSubmit={handleSubmit} style={styles.form}>
-          <input
-            type="text"
-            name="username"
-            placeholder="Enter your username"
-            value={formData.username}
-            onChange={handleChange}
-            style={styles.input}
-          />
+          <input type="text" name="username" placeholder="Enter your username" value={formData.username} onChange={handleChange} style={styles.input}/>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            style={styles.input}
-          />
+          <input type="email" name="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} style={styles.input}/>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            value={formData.password}
-            onChange={handleChange}
-            style={styles.input}
-          />
+          <input type="password" name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} style={styles.input}/>
 
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm your password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            style={styles.input}
-          />
+          <input type="password" name="confirmPassword" placeholder="Confirm your password" value={formData.confirmPassword}onChange={handleChange}style={styles.input}/>
 
           {error && <p style={styles.error}>{error}</p>}
           {success && <p style={styles.success}>{success}</p>}
 
-          <button type="submit" style={styles.button} disabled={loading}>
-            {loading ? "Creating Account..." : "Register"}
-          </button>
+          <button type="submit" style={styles.button} disabled={loading}> {loading ? "Creating Account..." : "Register"}</button>
         </form>
 
-        <p style={styles.footerText}>
-          Already have an account?{" "}
-          <Link to="/login" style={styles.link}>
-            Sign In
-          </Link>
-        </p>
+        <p style={styles.footerText}>Already have an account?{" "}<Link to="/login" style={styles.link}>Sign In</Link></p>
       </div>
     </div>
   );
 }
 
+
+// Stylling the Register page 
 const styles = {
   page: {
     minHeight: "100vh",
