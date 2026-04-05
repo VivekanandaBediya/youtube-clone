@@ -12,6 +12,7 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/video/:id" element={<VideoPage />} />
+      {/* <Route path="/video/:videoId" element={<VideoPage />} /> */}
       <Route path="/channel" element={<ChannelPage />} />
     </Routes>
   );
