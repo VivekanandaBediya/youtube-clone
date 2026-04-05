@@ -4,7 +4,10 @@
 
 ## Instruction for running the final project
 
-# 1. install the required packages 
+ ## only information :
+   # I have deleted the node_module before uploading the code into github repository. Therefore you have to install it first, you follow the below instruction.
+
+# 1. install the required packages (Folder structure : >Youtube-clone)
 #      -> npm install 
 
 # 2. For running the Youtube-clone project 
