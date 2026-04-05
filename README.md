@@ -25,4 +25,7 @@
 # Already all configuration in done , so you do not need to running different diffent client and server. Only you running the running the npm run dev in console in the root folder only after installing the installing the node_module in the root folder and client folder.
 
 
+# Please follow the above all instruction .
+
+
 
